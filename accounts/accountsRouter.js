@@ -64,6 +64,16 @@ router.put("/:id", (req, res) => {
 });
 
 // Delete
-router.delete("/:id", (req, res) => {});
+router.delete("/:id", (req, res) => {
+  db("accounts")
+    .where({ id: req.params.id })
+    .del()
+    .then(count => {
+      res.status(200).json({ message: `Deleted ${count} accounts.` });
+    })
+    .catch(err => {
+      res.status(500).json({ message: err.message });
+    });
+});
 
 module.exports = router;
