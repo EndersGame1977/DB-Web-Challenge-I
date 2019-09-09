@@ -6,7 +6,16 @@ const db = require("../data/dbConfig.js");
 const router = express.Router();
 
 // Read all
-router.get("/", (req, res) => {});
+router.get("/", (req, res) => {
+  db.select("*")
+    .from("accounts")
+    .then(account => {
+      res.status(200).json(account);
+    })
+    .catch(err => {
+      res.status(500).json({ message: err.message });
+    });
+});
 
 // Read One
 router.get("/:id", (req, res) => {});
